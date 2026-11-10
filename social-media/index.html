@@ -18,7 +18,7 @@ fbq('set','autoConfig',false,'2684529388382589');fbq('init','2684529388382589');
 <style>
 /* Formulário da vaga de social media da Apex · prévia v1, 09/11/2026.
    Campos do Rafa, nessa ordem e com as palavras dele: Nome · Telefone · Instagram · "Nosso escritório está na Savassi. Você conseguiria
-   estar aqui conosco presencialmente?" · "Já tem experiência na área?" (Sim abre o espaço pra enviar o portfólio).
+   estar aqui conosco presencialmente?" · "Já tem experiência na área?" (Sim abre o espaço pra enviar o portfólio, opcional desde 10/11: "se quiser, manda").
    Visual do formulário de captação (comercial/formulario_captacao/): escuro, azul, Plus Jakarta Sans, um texto só por campo
    (o título sobe quando toca), sem exemplo dentro do campo. Uma coluna em qualquer tela: o candidato chega pelo anúncio, no celular. */
 :root{
@@ -230,7 +230,7 @@ h1 em{font-style:normal;color:var(--azul)}
         <ul class="arquivos" id="arquivos" hidden></ul>
         <label class="soltar" id="soltar" for="port">
           <span class="ic" aria-hidden="true"><svg><use href="#i-sobe"/></svg></span>
-          <span class="tx"><b id="soltar-t">Enviar portfólio</b><small>PDF ou imagens</small></span>
+          <span class="tx"><b id="soltar-t">Enviar portfólio</b><small>Opcional · PDF ou imagens</small></span>
           <input id="port" name="portfolio" type="file" accept="application/pdf,.pdf,image/*" multiple>
         </label>
         <p class="msg" hidden></p>
@@ -350,7 +350,6 @@ h1 em{font-style:normal;color:var(--azul)}
     if (insta.length < 2) { erro('c-insta', 'Coloca o @ do seu Instagram.'); ok = false; }
     if (!presencial) { erro('c-pres', 'Marca sim ou não.'); ok = false; }
     if (!experiencia) { erro('c-exp', 'Marca sim ou não.'); ok = false; }
-    else if (experiencia === 'Sim' && !arquivos.length) { erro('c-port', 'Envia o seu portfólio.'); ok = false; }
     if (!ok) { const c = $('.campo.err'), alvo = c && c.querySelector('input'); if (alvo) alvo.focus(); return null; }
     return { nome, telefone: '55' + t, instagram: '@' + insta, presencial, experiencia };
   }
