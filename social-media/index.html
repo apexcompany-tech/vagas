@@ -359,6 +359,11 @@ h1 em{font-style:normal;color:var(--azul)}
     const p = new URLSearchParams(location.search), o = {};
     ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'].forEach(k => { if (p.get(k)) o[k] = p.get(k); });
     if (document.referrer) o.referrer = document.referrer;
+    // cookies do pixel, pro n8n mandar a candidatura também pela API de Conversões (10/11). _fbp só existe depois do 1º evento
+    // (aqui não tem PageView), então quase sempre vai só o _fbc, que é o que liga a candidatura ao clique no anúncio.
+    const ck = n => (document.cookie.match('(?:^|; )' + n + '=([^;]*)') || [])[1];
+    if (ck('_fbp')) o.fbp = ck('_fbp');
+    if (ck('_fbc')) o.fbc = ck('_fbc'); else if (o.fbclid) o.fbc = 'fb.1.' + Date.now() + '.' + o.fbclid;
     return o;
   };
 
